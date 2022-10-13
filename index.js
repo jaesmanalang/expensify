@@ -7,6 +7,7 @@ const connectDB = require('./config/db');
 const AppError = require('./utils/AppError');
 const errorHandler = require('./middlewares/errorHandler');
 const userRoutes = require('./routes/userRoutes');
+const transactionRoutes = require('./routes/transactionRoutes');
 const app = express();
 const port = process.env.PORT || 5000;
 
@@ -16,6 +17,7 @@ app.use(cors(corsOptions));
 app.use(express.json());
 
 app.use('/api/v1/users', userRoutes);
+app.use('/api/v1/transactions', transactionRoutes);
 
 app.all('*', (req, res, next) => {
   next(new AppError(`Can't find ${req.originalUrl} on this server.`));

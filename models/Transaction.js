@@ -8,6 +8,11 @@ const transactionSchema = new Schema({
     required: [true, 'Please summarize your transaction'],
   },
 
+  amount: {
+    type: Number,
+    required: [true, 'Please enter the amount'],
+  },
+
   category: {
     type: String,
     enum: ['Expense', 'Income'],
@@ -22,6 +27,7 @@ const transactionSchema = new Schema({
   user: {
     type: Schema.Types.ObjectId,
     ref: 'User',
+    required: [true, 'User ID is required'],
   },
 });
 

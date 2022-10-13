@@ -13,7 +13,7 @@ const protect = asyncHandler(async (req, res, next) => {
     token = req.headers.authorization.split(' ')[1];
   }
 
-  if (!token) throw new AppError('Please log in to get access', 401);
+  if (!token) throw new AppError('Login is required', 401);
 
   const decoded = jwt.verify(token, process.env.JWT_SECRET);
   const currentUser = await User.findById(decoded.id);
