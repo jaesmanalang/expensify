@@ -37,7 +37,18 @@ const loginUser = asyncHandler(async (req, res) => {
   });
 });
 
+const getUserDetails = asyncHandler(async (req, res) => {
+  const user = await User.findById(req.user._id);
+  if (!user) throw new AppError('Login required');
+
+  res.status(200).json({
+    status: 'success',
+    user,
+  });
+});
+
 module.exports = {
   registerUser,
   loginUser,
+  getUserDetails,
 };
