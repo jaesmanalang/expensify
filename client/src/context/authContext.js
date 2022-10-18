@@ -13,7 +13,7 @@ export const AuthProvider = ({ children }) => {
   useEffect(() => {
     const accessToken = localStorage.getItem('token');
     if (accessToken !== null) {
-      setToken(accessToken);
+      setToken(localStorage.getItem('token'));
     }
   }, []);
 
@@ -64,9 +64,7 @@ export const AuthProvider = ({ children }) => {
 };
 
 export const useAuthContext = () => {
-  const authContext = useContext(AuthContext);
-
-  return authContext;
+  return useContext(AuthContext);
 };
 
 export default AuthContext;

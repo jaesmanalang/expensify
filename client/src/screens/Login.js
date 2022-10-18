@@ -1,18 +1,12 @@
 import { useState, useContext, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Navigate } from 'react-router-dom';
 import { AuthContext } from '../context/authContext';
+import { CgSpinner } from 'react-icons/cg';
 
 const Login = () => {
   const { login, loading, error, token } = useContext(AuthContext);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const navigate = useNavigate();
-
-  useEffect(() => {
-    if (token) {
-      navigate('/');
-    }
-  }, [token, navigate]);
 
   const handleSubmit = e => {
     e.preventDefault();
@@ -23,6 +17,10 @@ const Login = () => {
 
     login(user);
   };
+
+  if (token) {
+    return <Navigate to="/" />;
+  }
 
   return (
     <div className="h-screen flex flex-col items-center justify-center">
@@ -57,10 +55,15 @@ const Login = () => {
             </label>
           </div>
           <button
-            className="rounded-md ease-in-out duration-200 block py-2 px-4 bg-slate-700 text-white font-bold w-full hover:bg-black"
+            disabled={loading}
+            className="rounded-md flex items-center justify-center ease-in-out duration-200 py-2 px-4 bg-slate-700 text-white font-bold w-full hover:bg-black disabled:bg-black"
             type="submit"
           >
-            {loading ? 'Loading...' : 'Login'}
+            {loading ? (
+              <CgSpinner className="text-2xl animate-spin" />
+            ) : (
+              'Login'
+            )}
           </button>
         </form>
       </div>
