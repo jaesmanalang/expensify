@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import {
   RiDashboard3Line,
   RiBillLine,
@@ -6,43 +6,75 @@ import {
   RiLogoutBoxLine,
 } from 'react-icons/ri';
 import { useAuthContext } from '../context/authContext';
+import { clsx } from 'clsx';
 import Logo from './Logo';
 
 const Sidebar = () => {
   const { logout } = useAuthContext();
 
+  const navLinkStyle = {
+    default: 'flex items-center p-2 hover:bg-slate-300 transition ease-in-out',
+    active: 'bg-slate-300',
+  };
+
   return (
     <nav className="max-h-screen h-full flex flex-col overflow-auto w-[210px] fixed top-0 left-0 bg-slate-200 py-4">
-      <Link className="block mb-4 p-2" to="/">
+      <NavLink className="block mb-4 p-2" to="/">
         <Logo />
-      </Link>
+      </NavLink>
       <ul className="mb-4">
         <li>
-          <Link
-            className="flex items-center p-2 hover:bg-slate-300 transition ease-in-out"
+          <NavLink
+            className={({ isActive }) =>
+              isActive
+                ? `${navLinkStyle.default} ${navLinkStyle.active}`
+                : navLinkStyle.default
+            }
             to="/"
+            end
           >
             <RiDashboard3Line />
             <span className="ml-2">Dashboard</span>
-          </Link>
+          </NavLink>
         </li>
         <li>
-          <Link
-            className="flex items-center p-2 hover:bg-slate-300 transition ease-in-out"
-            to="/"
+          <NavLink
+            className={({ isActive }) =>
+              isActive
+                ? `${navLinkStyle.default} ${navLinkStyle.active}`
+                : navLinkStyle.default
+            }
+            to="/transactions"
           >
             <RiBillLine />
             <span className="ml-2">Transactions</span>
-          </Link>
+          </NavLink>
         </li>
         <li>
-          <Link
-            className="flex items-center p-2 hover:bg-slate-300 transition ease-in-out"
-            to="/"
+          <NavLink
+            className={({ isActive }) =>
+              isActive
+                ? `${navLinkStyle.default} ${navLinkStyle.active}`
+                : navLinkStyle.default
+            }
+            to="/statistics"
           >
             <RiFolderChartLine />
             <span className="ml-2">Statistics</span>
-          </Link>
+          </NavLink>
+        </li>
+        <li>
+          <NavLink
+            className={({ isActive }) =>
+              isActive
+                ? `${navLinkStyle.default} ${navLinkStyle.active}`
+                : navLinkStyle.default
+            }
+            to="/add-transaction"
+          >
+            <RiBillLine />
+            <span className="ml-2">Add Transaction</span>
+          </NavLink>
         </li>
       </ul>
       <button

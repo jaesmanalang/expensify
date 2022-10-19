@@ -1,8 +1,9 @@
 import { Routes, Route } from 'react-router-dom';
 import { TransactionProvider } from './context/transactionContext';
-import { Home, Login, Register, AddTransaction } from './screens';
+import { Dashboard, Login, Register, AddTransaction } from './screens';
 import PrivateRoutes from './components/PrivateRoutes';
 import Layout from './components/Layout';
+import Transactions from './screens/Transactions';
 
 const App = () => {
   return (
@@ -11,12 +12,9 @@ const App = () => {
         <>
           <Route path="/" element={<PrivateRoutes />}>
             <Route element={<Layout />}>
-              <Route path="/" element={<Home />} />
-              <Route
-                exact
-                path="/transactions/add"
-                element={<AddTransaction />}
-              />
+              <Route path="/" element={<Dashboard />} />
+              <Route path="/transactions" element={<Transactions />} />
+              <Route path="/add-transaction" element={<AddTransaction />} />
             </Route>
           </Route>
         </>
